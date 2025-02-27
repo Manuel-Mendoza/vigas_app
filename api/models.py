@@ -1,8 +1,6 @@
 from django.db import models
 
 # Create your models here.
-from django.db import models
-
 class Produccion(models.Model):
     fecha = models.DateField()
 
