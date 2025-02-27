@@ -1,6 +1,6 @@
 from django.urls import path
-from api.views import VigasView
+from .views import VigasView
 
-urls = [
+urlpatterns = [
     path('proyectos/',VigasView.as_view(), name='proyectos'),
 ]
