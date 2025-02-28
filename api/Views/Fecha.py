@@ -27,7 +27,6 @@ class FechaView(View):
 
 
     def post(self, request):
-        print("Cuerpo de la solicitud:", request.body.decode('utf-8'))
         try:
             # Inicializar con None para detectar si no se proporcionó fecha
             fecha = None
