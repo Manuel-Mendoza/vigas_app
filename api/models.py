@@ -4,7 +4,8 @@ from django.db import models
 
 # Create your models here.
 class Produccion(models.Model):
-    fecha = models.DateField(auto_now_add=True)
+
+    fecha = models.DateField()
     def __str__(self):
         return f"Fecha: {self.fecha.strftime('%m-%d-%Y')}"
 
