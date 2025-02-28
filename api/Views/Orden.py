@@ -7,7 +7,7 @@ class OrdenView(View):
     def get(self, request):
         orden = list(Orden.objects.values())
         if len(orden) > 0:
-            datos = {'message': 'Ordenes encontradas', 'vigas': orden}
+            datos = {'Ordenes': orden}
         else:
-            datos = {'message': 'No se encontraron vigas'}
+            datos = {'message': 'No se encontraron ordenes'}
         return JsonResponse(datos)

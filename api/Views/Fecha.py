@@ -11,9 +11,9 @@ class FechaView(View):
     def get(self, request):
         fecha = list(Produccion.objects.values())
         if len(fecha) > 0:
-            datos = {'message': 'Fecha encontradas', 'vigas': fecha}
+            datos = {'Fecha': fecha}
         else:
-            datos = {'message': 'No se encontraron vigas'}
+            datos = {'message': 'No se encontraron Fechas'}
         return JsonResponse(datos)
 
 
@@ -35,5 +35,5 @@ class FechaView(View):
         # Usar datetime.now() correctamente
         fecha_actual = datetime.now().strftime('%m-%d-%Y')
         Produccion.objects.create(fecha=fecha_actual)
-        response_data = {'message': 'POST request received', 'fecha': fecha_actual}
+        response_data = {'fecha': fecha_actual}
         return JsonResponse(response_data)
