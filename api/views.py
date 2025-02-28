@@ -7,9 +7,9 @@ from .models import Viga,Produccion,Orden
 
 class OrdenView(View):
     def get(self, request):
-        vigas = list(Orden.objects.values())
-        if len(vigas) > 0:
-            datos = {'message': 'Ordenes encontradas', 'vigas': vigas}
+        orden = list(Orden.objects.values())
+        if len(orden) > 0:
+            datos = {'message': 'Ordenes encontradas', 'vigas': orden}
         else:
             datos = {'message': 'No se encontraron vigas'}
         return JsonResponse(datos)
