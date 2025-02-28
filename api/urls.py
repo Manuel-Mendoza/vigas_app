@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import VigasView,OrdenView,FechaView
+from .Views.Vigas import VigasView
+from .Views.Fecha import FechaView
+from .Views.Orden import OrdenView
 
 urlpatterns = [
     path('vigas/',VigasView.as_view(), name='vigas'),

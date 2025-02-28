@@ -1,5 +1,7 @@
 from django.db import models
 
+
+
 # Create your models here.
 class Produccion(models.Model):
     fecha = models.DateField(auto_now_add=True)
