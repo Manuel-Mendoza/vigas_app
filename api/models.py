@@ -3,19 +3,23 @@ from django.db import models
 
 
 # Create your models here.
+# --------------Data Fecha-------------------
 class Produccion(models.Model):
-
     fecha = models.DateField(unique=True)
     def __str__(self):
         return f"Fecha: {self.fecha.strftime('%m-%d-%Y')}"
 
+
+# --------------Data orden-------------------
 class Orden(models.Model):
     produccion = models.ForeignKey(Produccion, on_delete=models.CASCADE, related_name="ordenes")
-    numero_orden = models.CharField(max_length=50)  # Changed from NumberField to CharField
+    numero_orden = models.CharField(max_length=50)
 
     def __str__(self):
         return f"Orden {self.numero_orden} - {self.produccion.fecha.strftime('%m-%d-%Y')}"
 
+
+# --------------Data Viga-------------------
 class Viga(models.Model):
     opciones = [
         ('DF', 'DF'), ('YC', 'YC')

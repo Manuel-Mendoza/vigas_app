@@ -6,7 +6,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from datetime import datetime
 
+@method_decorator(csrf_exempt, name='dispatch')
 class FechaView(View):
+
+#-----------------GET-------------------
     def get(self, request):
         fecha = list(Produccion.objects.values())
         if len(fecha) > 0:
@@ -17,11 +20,10 @@ class FechaView(View):
 
 
 #-------------------Dispatch-----------------
+    #Eliminar para se vaya a subir a la web
     @method_decorator(csrf_exempt)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
-
-        #Eliminar para se vaya a subir a la web
 #-------------------------------------------------
 
 
@@ -49,3 +51,15 @@ class FechaView(View):
             # Devolver la información del registro creado
             response_data = {'id': produccion.id, 'fecha': produccion.fecha}
             return JsonResponse(response_data, status=201)
+
+
+#--------------------Delete-----------------
+    @csrf_exempt
+    def delete(self, request, id):
+        fecha = list(Produccion.objects.filter(id=id).values())
+        #print(fecha)
+        if len(fecha) > 0:
+            Produccion.objects.filter(id=id).delete()
+            return JsonResponse({'message': 'Fecha eliminada'}, status=200)
+        else:
+            return JsonResponse({'message': 'Fecha no encontrada'}, status=404)
