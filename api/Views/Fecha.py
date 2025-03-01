@@ -25,10 +25,8 @@ class FechaView(View):
 #-------------------------------------------------
 
 
+#-------------------POST-----------------
     def post(self, request):
-        print("Cuerpo de la solicitud:", request.body.decode('utf-8'))
-        try:
-            # Inicializar con None para detectar si no se proporcionó fecha
             fecha = None
 
             # Si hay datos en el body, extraemos la fecha
@@ -36,13 +34,14 @@ class FechaView(View):
                 jsondata = json.loads(request.body)
                 if jsondata['fecha']:
                     fecha = jsondata['fecha']
-                    # Validamos el formato de fecha si es necesario
-                    # Puedes agregar código para validar que el formato sea correcto
 
             # Si no se proporcionó fecha, usamos la actual
             if fecha is None:
                 fecha = datetime.now().strftime('%Y-%m-%d')
 
+            #Validando que la fecha no exista en la base de datos
+            if Produccion.objects.filter(fecha=fecha).exists():
+                return JsonResponse({'message': 'Fecha ya existe'}, status=400)
 
             # Crear el registro con la fecha
             produccion = Produccion.objects.create(fecha=fecha)
@@ -50,8 +49,3 @@ class FechaView(View):
             # Devolver la información del registro creado
             response_data = {'id': produccion.id, 'fecha': produccion.fecha}
             return JsonResponse(response_data, status=201)
-
-        except json.JSONDecodeError:
-            return JsonResponse({'error': 'JSON inválido'}, status=400)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
