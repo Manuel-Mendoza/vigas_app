@@ -31,6 +31,7 @@ class FechaView(View):
 
 
     def post(self, request):
+<<<<<<< HEAD
         print("Cuerpo de la solicitud:", request.body.decode('utf-8'))
         try:
             # Inicializar con None para detectar si no se proporcionó fecha
@@ -75,3 +76,15 @@ class FechaView(View):
             return JsonResponse(response_data, status=201)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
+=======
+        # Se revisa si hay body, si no, simplemente continuamos
+        if request.body:
+            jsondata = json.loads(request.body)
+            # Variable jsondata ahora está disponible para uso futuro si es necesario
+
+        # Usar datetime.now() correctamente
+        fecha_actual = datetime.now().strftime('%m-%d-%Y')
+        Produccion.objects.create(fecha=fecha_actual)
+        response_data = {'fecha': fecha_actual}
+        return JsonResponse(response_data)
+>>>>>>> parent of 2aaf604 (Ya sirve Poner fecha por Json y Automaticamente)

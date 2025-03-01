@@ -4,10 +4,14 @@ from django.db import models
 
 # Create your models here.
 class Produccion(models.Model):
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 
     fecha = models.DateField()
+=======
+    fecha = models.DateField(auto_now_add=True)
+>>>>>>> parent of 2aaf604 (Ya sirve Poner fecha por Json y Automaticamente)
     def __str__(self):
         return f"Fecha: {self.fecha.strftime('%m-%d-%Y')}"
 =======
