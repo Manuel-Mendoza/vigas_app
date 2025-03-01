@@ -5,14 +5,10 @@ from django.db import models
 # Create your models here.
 class Produccion(models.Model):
 <<<<<<< HEAD
-<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 
     fecha = models.DateField()
-=======
-    fecha = models.DateField(auto_now_add=True)
->>>>>>> parent of 2aaf604 (Ya sirve Poner fecha por Json y Automaticamente)
 =======
     fecha = models.DateField(auto_now_add=True)
 >>>>>>> parent of 2aaf604 (Ya sirve Poner fecha por Json y Automaticamente)
