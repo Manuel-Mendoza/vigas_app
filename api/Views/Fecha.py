@@ -7,6 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from datetime import datetime
 
+
+
 class FechaView(View):
     def get(self, request):
         fecha = list(Produccion.objects.values())
@@ -15,6 +17,8 @@ class FechaView(View):
         else:
             datos = {'message': 'No se encontraron Fechas'}
         return JsonResponse(datos)
+
+
 
 
 #-------------------Dispatch-----------------
@@ -27,31 +31,47 @@ class FechaView(View):
 
 
     def post(self, request):
+        print("Cuerpo de la solicitud:", request.body.decode('utf-8'))
         try:
             # Inicializar con None para detectar si no se proporcionó fecha
-            fecha = None
+            fecha_str = None  # Guardar el string
+            fecha_obj = None  # Para el objeto datetime
 
             # Si hay datos en el body, extraemos la fecha
             if request.body:
                 jsondata = json.loads(request.body)
-                if jsondata['fecha']:
-                    fecha = jsondata['fecha']
-                    # Validamos el formato de fecha si es necesario
-                    # Puedes agregar código para validar que el formato sea correcto
+                if 'fecha' in jsondata and jsondata['fecha']:
+                    fecha_str = jsondata['fecha']
+                    try:
+                        # Convertir string a objeto datetime
+                        fecha_obj = datetime.strptime(fecha_str, '%Y-%m-%d')
+                    except ValueError:
+                        return JsonResponse({'error': 'Formato de fecha inválido. Use YYYY-MM-DD'}, status=400)
 
             # Si no se proporcionó fecha, usamos la actual
-            if fecha is None:
-                fecha = datetime.now().strftime('%Y-%m-%d')
+            if fecha_obj is None:
+                fecha_obj = datetime.now()
 
+            # Convertir la fecha a un formato adecuado para ID (sin guiones)
+            fecha_id = fecha_str.replace('-', '')
 
-            # Crear el registro con la fecha
-            produccion = Produccion.objects.create(fecha=fecha)
+            # Verificar si ya existe un registro con esta fecha
+            if Produccion.objects.filter(fecha=fecha_str).exists():
+                return JsonResponse({
+                    'error': 'Ya existe un registro con esta fecha',
+                    'fecha': fecha_str
+                }, status=400)
+
+            # Crear el registro con la fecha como ID
+            produccion = Produccion(id=fecha_id, fecha=fecha_str)
+            produccion.save()
 
             # Devolver la información del registro creado
-            response_data = {'id': produccion.id, 'fecha': produccion.fecha}
+            response_data = {
+                'id': produccion.id,
+                'fecha': produccion.fecha,
+                'mensaje': 'Registro creado exitosamente'
+            }
             return JsonResponse(response_data, status=201)
-
-        except json.JSONDecodeError:
-            return JsonResponse({'error': 'JSON inválido'}, status=400)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
