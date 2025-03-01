@@ -32,6 +32,7 @@ class FechaView(View):
 
     def post(self, request):
 <<<<<<< HEAD
+<<<<<<< HEAD
         print("Cuerpo de la solicitud:", request.body.decode('utf-8'))
         try:
             # Inicializar con None para detectar si no se proporcionó fecha
@@ -77,6 +78,8 @@ class FechaView(View):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
 =======
+=======
+>>>>>>> parent of 2aaf604 (Ya sirve Poner fecha por Json y Automaticamente)
         # Se revisa si hay body, si no, simplemente continuamos
         if request.body:
             jsondata = json.loads(request.body)
@@ -87,4 +90,7 @@ class FechaView(View):
         Produccion.objects.create(fecha=fecha_actual)
         response_data = {'fecha': fecha_actual}
         return JsonResponse(response_data)
+<<<<<<< HEAD
+>>>>>>> parent of 2aaf604 (Ya sirve Poner fecha por Json y Automaticamente)
+=======
 >>>>>>> parent of 2aaf604 (Ya sirve Poner fecha por Json y Automaticamente)
