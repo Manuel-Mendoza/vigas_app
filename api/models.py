@@ -5,11 +5,14 @@ from django.db import models
 # Create your models here.
 class Produccion(models.Model):
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     fecha = models.DateField()
     def __str__(self):
         return f"Fecha: {self.fecha.strftime('%m-%d-%Y')}"
 =======
+=======
+>>>>>>> Stashed changes
     id = models.CharField(max_length=20, primary_key=True, editable=False)
     fecha = models.DateField(unique=True)
 
@@ -31,6 +34,9 @@ class Produccion(models.Model):
           return f"Producción del {self.fecha}"
           print("Producción del", self.fecha)
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 class Orden(models.Model):
