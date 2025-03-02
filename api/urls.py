@@ -12,4 +12,5 @@ urlpatterns = [
     path('ordenes/<int:id>/',OrdenView.as_view(), name='deleteordenes'),
     #-------------APIs VigasView-----------------
     path('vigas/',VigasView.as_view(), name='vigas'),
+    path('vigas/<int:id>/',VigasView.as_view(), name='deletevigas'),
 ]
