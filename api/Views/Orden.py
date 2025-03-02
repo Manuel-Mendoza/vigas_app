@@ -46,3 +46,14 @@ class OrdenView(View):
                         'produccion_fecha_id': create_orden.produccion_fecha_id,
                         'numero_orden': create_orden.numero_orden
                     }, status=201)
+
+    #---------------------------Delete-----------------------------
+
+    @csrf_exempt
+    def delete(self, request, id):
+        orden = Orden.objects.filter(id=id)
+        if orden.exists():
+            orden.delete()
+            return JsonResponse({'message': 'Orden eliminada correctamente'}, status=200)
+        else:
+            return JsonResponse({'message': 'Orden no encontrada'}, status=404)

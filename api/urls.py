@@ -9,6 +9,7 @@ urlpatterns = [
     path('fecha/<int:id>/',FechaView.as_view(), name='deletefecha'),
     #-------------APIs OrdenView-----------------
     path('ordenes/',OrdenView.as_view(), name='ordenes'),
+    path('ordenes/<int:id>/',OrdenView.as_view(), name='deleteordenes'),
     #-------------APIs VigasView-----------------
     path('vigas/',VigasView.as_view(), name='vigas'),
 ]
