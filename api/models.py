@@ -15,6 +15,9 @@ class Orden(models.Model):
     produccion_fecha = models.ForeignKey(Produccion, on_delete=models.CASCADE, related_name="fechas")
     numero_orden = models.CharField(max_length=50)
 
+    class Meta:
+        unique_together = ('produccion_fecha', 'numero_orden')   # Evita duplicados en la misma fecha
+
     def __str__(self):
         return f"Orden {self.numero_orden} - {self.produccion_fecha.fecha.strftime('%m-%d-%Y')}"
 

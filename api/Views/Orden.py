@@ -21,19 +21,27 @@ class OrdenView(View):
     @csrf_exempt
     def post(self, request):
 
-            jsondata = json.loads(request.body)
-            if jsondata['numero_orden']:
-                numero_orden = jsondata['numero_orden']
+        jsondata = json.loads(request.body)
 
-            print(numero_orden)
+        if jsondata['numero_orden']:
+            numero_orden = jsondata['numero_orden']
+        else:
+            return JsonResponse({'message': 'Numero de orden es requerido'}, status=400)
 
-            # Validando que la numero de orden no exista en la base de datos
-            if Orden.objects.filter(numero_orden=numero_orden).exists():
-                 return JsonResponse({'message': 'Numero de orden ya existe'}, status=400)
+        if jsondata['produccion_fecha_id']:
+            produccion_fecha_id = jsondata['produccion_fecha_id']
+        else:
+            return JsonResponse({'message': 'produccion_fecha_id es requerido'}, status=400)
 
-            # Crear el registro con el numero de orden
-            create_orden = Orden.objects.create(numero_orden=numero_orden)
+        print(produccion_fecha_id,numero_orden)
 
-            # Devolver la información del registro creado
-            response_data = {'id': create_orden.id,'produccion_id': create_orden.produccion_id,'numero_orden':create_orden.numero_orden}
-            return JsonResponse(response_data, status=201)
+        # Validando que la numero de orden no exista en la base de datos
+        if Orden.objects.filter(numero_orden=numero_orden).exists():
+                return JsonResponse({'message': 'Numero de orden ya existe'}, status=400)
+
+        # Crear el registro con el numero de orden
+        create_orden = Orden.objects.create(produccion_fecha_id=produccion_fecha_id,numero_orden=numero_orden)
+
+        # Devolver la información del registro creado
+        response_data = {'id': create_orden.id,'produccion_fecha_id': create_orden.produccion_fecha_id,'numero_orden':create_orden.numero_orden}
+        return JsonResponse(response_data, status=201)
