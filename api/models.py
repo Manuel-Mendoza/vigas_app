@@ -12,11 +12,11 @@ class Produccion(models.Model):
 
 # --------------Data orden-------------------
 class Orden(models.Model):
-    produccion = models.ForeignKey(Produccion, on_delete=models.CASCADE, related_name="ordenes")
+    produccion_fecha = models.ForeignKey(Produccion, on_delete=models.CASCADE, related_name="fechas")
     numero_orden = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"Orden {self.numero_orden} - {self.produccion.fecha.strftime('%m-%d-%Y')}"
+        return f"Orden {self.numero_orden} - {self.produccion_fecha.fecha.strftime('%m-%d-%Y')}"
 
 
 # --------------Data Viga-------------------
