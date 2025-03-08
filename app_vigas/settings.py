@@ -31,8 +31,18 @@ INSTALLED_APPS = [
     'api',
     "corsheaders",
     'rest_framework',
+    'drf_spectacular',
 ]
-
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+# Configuración de drf-spectacular
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Vigas API',
+    'DESCRIPTION': 'API para gestionar órdenes y vigas',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
