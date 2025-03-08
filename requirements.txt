@@ -1,5 +1,14 @@
 asgiref==3.8.1
+asn1crypto==1.5.1
 backports.zoneinfo==0.2.1
+dj-database-url==2.3.0
 Django==4.2.19
+django-cors-headers==4.4.0
+djangorestframework==3.15.2
+pg8000==1.31.2
+psycopg2-binary==2.9.10
+python-dateutil==2.9.0.post0
+scramp==1.4.5
+six==1.17.0
 sqlparse==0.5.3
 typing_extensions==4.12.2
