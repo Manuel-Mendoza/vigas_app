@@ -1,12 +1,14 @@
-from django.utils import timezone
 from django.db import models
 
 class Orden(models.Model):
-      numero_orden = models.CharField(max_length=10, unique=True)
-      fecha = models.DateField(default=timezone.now,unique=True)
+      numero_orden = models.CharField(max_length=10)
+      fecha = models.DateField()
+
+      class Meta:
+        unique_together = ('numero_orden', 'fecha')  # Restricción única
 
       def __str__(self):
-          return f"Orden {self.numero_orden} - {self.fecha}"
+        return f"Orden {self.numero_orden} - Fecha {self.fecha}"
 
 class Viga(models.Model):
       orden = models.ForeignKey(Orden, related_name="vigas", on_delete=models.CASCADE)

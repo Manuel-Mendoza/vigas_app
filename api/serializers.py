@@ -13,7 +13,8 @@ class OrdenSerializer(serializers.ModelSerializer):
         model = Orden
         fields = ["numero_orden", "fecha", "vigas"]
 
-    def validate_produccion_fecha(self, value):
-            if Orden.objects.filter(fecha=value).exists():
-                raise serializers.ValidationError("La fecha ya existe, por favor seleccione otra.")
-            return value
+    def validate(self, data):
+          # Verificar si la combinación de número de orden y fecha ya existe
+          if Orden.objects.filter(numero_orden=data['numero_orden'], fecha=data['produccion_fecha']).exists():
+              raise serializers.ValidationError("Esta orden ya tiene esta fecha registrada.")
+          return data

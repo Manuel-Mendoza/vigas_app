@@ -8,5 +8,5 @@ class OrdenAdmin(admin.ModelAdmin):
 
 @admin.register(Viga)
 class VigaAdmin(admin.ModelAdmin):
-    list_display = ("id", "nombre", "cantidad", "medidas", "orden",'cada_una','tipo')
+    list_display = ("id", "nombre", "cantidad", "medidas", 'cada_una','tipo',"orden")
     search_fields = ("nombre", "orden__numero_orden")
