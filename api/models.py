@@ -3,7 +3,7 @@ from django.db import models
 
 class Orden(models.Model):
       numero_orden = models.CharField(max_length=10, unique=True)
-      fecha = models.DateField(default=timezone.now)
+      fecha = models.DateField(default=timezone.now,unique=True)
 
       def __str__(self):
           return f"Orden {self.numero_orden} - {self.fecha}"
