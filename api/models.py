@@ -4,8 +4,9 @@ class Orden(models.Model):
       numero_orden = models.CharField(max_length=10)
       fecha = models.DateField()
 
-      class Meta:
-        unique_together = ('numero_orden', 'fecha')  # Restricción única
+      # Eliminamos la restricción única para permitir múltiples órdenes con el mismo número
+      # class Meta:
+      #   unique_together = ('numero_orden', 'fecha')
 
       def __str__(self):
         return f"Orden {self.numero_orden} - Fecha {self.fecha}"

@@ -13,8 +13,9 @@ class OrdenSerializer(serializers.ModelSerializer):
         model = Orden
         fields = ["numero_orden", "fecha", "vigas"]
 
-    def validate(self, data):
-          # Verificar si la combinación de número de orden y fecha ya existe
-          if Orden.objects.filter(numero_orden=data['numero_orden'], fecha=data['produccion_fecha']).exists():
-              raise serializers.ValidationError("Esta orden ya tiene esta fecha registrada.")
-          return data
+    # Eliminamos la validación que impide tener múltiples órdenes con el mismo número
+    # def validate(self, data):
+    #       # Verificar si la combinación de número de orden y fecha ya existe
+    #       if Orden.objects.filter(numero_orden=data['numero_orden'], fecha=data['produccion_fecha']).exists():
+    #           raise serializers.ValidationError("Esta orden ya tiene esta fecha registrada.")
+    #       return data
