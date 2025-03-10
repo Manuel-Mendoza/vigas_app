@@ -1,8 +1,8 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import OrdenViewSet  # Nota el punto antes de views
+from .views import OrdenViewSet 
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
-# Configura el router para ViewSets
+
 router = DefaultRouter()
 router.register(r'ordenes', OrdenViewSet)
 
