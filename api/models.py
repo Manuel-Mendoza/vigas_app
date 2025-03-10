@@ -1,9 +1,15 @@
 from django.db import models
+from django.db.models import UniqueConstraint
 
 class Orden(models.Model):
       numero_orden = models.CharField(max_length=10)
       fecha = models.DateField()
 
+      class Meta:
+          constraints = [
+              UniqueConstraint(fields=['numero_orden', 'fecha'], name='unique_orden_fecha')
+          ]
+          
       def __str__(self):
         return f"Orden {self.numero_orden} - Fecha {self.fecha}"
 

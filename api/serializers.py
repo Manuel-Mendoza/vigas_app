@@ -13,4 +13,4 @@ class OrdenSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Orden
-        fields = ['id',"numero_orden", "fecha", "vigas"]
+        fields = ["numero_orden", "fecha", "vigas"]
