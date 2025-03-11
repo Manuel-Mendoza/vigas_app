@@ -8,8 +8,16 @@ class OrdenViewSet(viewsets.ModelViewSet):
     queryset = Orden.objects.all()
     serializer_class = OrdenSerializer
 
+    def create(self, request, *args, **kwargs):
+        try:
+            return super().create(request, *args, **kwargs)
+        except Exception as e:
+            return Response(
+                {'error': str(e)},
+                status=400
+            )
+
     def retrieve(self, request, pk=None):
-        # Buscar todas las órdenes que coincidan con el número de orden
         ordenes = self.queryset.filter(numero_orden=pk)
         if ordenes.exists():
             serializer = self.get_serializer(ordenes, many=True)
