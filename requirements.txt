@@ -1,7 +1,6 @@
 asgiref==3.8.1
 asn1crypto==1.5.1
 attrs==25.1.0
-backports.zoneinfo==0.2.1
 black==24.8.0
 click==8.1.8
 dj-database-url==2.3.0
@@ -32,4 +31,4 @@ sqlparse==0.5.3
 tomli==2.2.1
 typing_extensions==4.12.2
 uritemplate==4.1.1
-zipp==3.20.2
+whitenoise==6.6.0

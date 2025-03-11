@@ -1,3 +1,4 @@
+import os
 import dj_database_url
 from corsheaders.defaults import default_methods
 from corsheaders.defaults import default_headers
@@ -6,21 +7,15 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9u%7zlw#1g6ehgcvf+=x9=$dp%jx57ctcxwvj991ns2*^7!v3x'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-9u%7zlw#1g6ehgcvf+=x9=$dp%jx57ctcxwvj991ns2*^7!v3x')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['192.168.254.60','http://localhost:4321', 'localhost','127.0.0.1','192.168.254.70']
-
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '.vercel.app,localhost,127.0.0.1').split(',')
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -33,21 +28,13 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'api',
 ]
+
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ]
 }
-
-CORS_ALLOW_METHODS = (
-    *default_methods,
-)
-
-CORS_ALLOW_HEADERS = (
-    *default_headers,
-)
-CORS_ALLOW_ALL_ORIGINS=True
 
 # Configuración de drf-spectacular
 SPECTACULAR_SETTINGS = {
@@ -56,9 +43,11 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -87,20 +76,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app_vigas.wsgi.application'
 
-
 # Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     'default': dj_database_url.config(
-        default="postgresql://neondb_owner:npg_lVmNi5KGW9SX@ep-floral-silence-a812s3k8-pooler.eastus2.azure.neon.tech/neondb?sslmode=require"
+        default=os.environ.get('postgresql://neondb_owner:npg_lVmNi5KGW9SX@ep-floral-silence-a812s3k8-pooler.eastus2.azure.neon.tech/neondb?sslmode=require'),
+        conn_max_age=600
     )
 }
 
-
 # Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -116,22 +100,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Los_Angeles'
 USE_I18N = True
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATIC_URL = 'static/'
+# CORS settings
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
