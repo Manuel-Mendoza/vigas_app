@@ -3,6 +3,13 @@ import dj_database_url
 from corsheaders.defaults import default_methods
 from corsheaders.defaults import default_headers
 from pathlib import Path
+from urllib.parse import urlparse
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Replace the DATABASES section of your settings.py with this
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,12 +84,29 @@ TEMPLATES = [
 WSGI_APPLICATION = 'app_vigas.wsgi.application'
 
 # Database
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('postgresql://neondb_owner:npg_lVmNi5KGW9SX@ep-floral-silence-a812s3k8-pooler.eastus2.azure.neon.tech/neondb?sslmode=require'),
-        conn_max_age=600
-    )
-}
+database_url = os.getenv("DATABASE_URL")
+if database_url:
+    tmpPostgres = urlparse(database_url)
+    # Asegurarse de que path sea una cadena antes de usar replace
+    db_name = tmpPostgres.path.replace('/', '') if isinstance(tmpPostgres.path, str) else tmpPostgres.path.decode().replace('/', '')
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': db_name,
+            'USER': tmpPostgres.username,
+            'PASSWORD': tmpPostgres.password,
+            'HOST': tmpPostgres.hostname,
+            'PORT': 5432,
+        }
+    }
+else:
+    # Configuración de base de datos alternativa (SQLite)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
