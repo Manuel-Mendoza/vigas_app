@@ -99,14 +99,6 @@ if database_url:
             'PORT': 5432,
         }
     }
-else:
-    # Configuración de base de datos alternativa (SQLite)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
