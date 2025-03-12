@@ -18,7 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-9u%7zlw#1g6ehgcvf+=x9=$dp%jx57ctcxwvj991ns2*^7!v3x')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = os.environ.get('DEBUG', 'False') == 'False'
 RAILWAY_DOMAIN = os.environ.get('vigasapp-production.up.railway.app', '')
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.railway.app', RAILWAY_DOMAIN]
 
