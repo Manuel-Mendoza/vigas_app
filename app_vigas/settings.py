@@ -20,7 +20,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-9u%7zlw#1g6ehgcvf+=x9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'https://vigasapp-production.up.railway.app,localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'vigasapp-production.up.railway.app,localhost,127.0.0.1').split(',')
 
 # Application definition
 INSTALLED_APPS = [
