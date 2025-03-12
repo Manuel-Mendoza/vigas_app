@@ -132,5 +132,6 @@ CORS_ALLOW_ALL_ORIGINS = True
  # Añade esto a tu settings.py
 if RAILWAY_DOMAIN:
     CSRF_TRUSTED_ORIGINS = [f'https://{RAILWAY_DOMAIN}']
+    CSRF_TRUSTED_ORIGINS = [f'https://{RAILWAY_DOMAIN}/admin/']
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
