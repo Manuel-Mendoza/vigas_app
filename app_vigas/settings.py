@@ -118,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'America/Los_Angeles'
+TIME_ZONE = 'America/Portland'
 USE_I18N = True
 USE_TZ = True
 
@@ -130,7 +130,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = True
  # Añade esto a tu settings.py
-if RAILWAY_DOMAIN:
-    CSRF_TRUSTED_ORIGINS = [f'https://{RAILWAY_DOMAIN}']
+# if RAILWAY_DOMAIN:
+#     CSRF_TRUSTED_ORIGINS = [f'https://{RAILWAY_DOMAIN}']
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
