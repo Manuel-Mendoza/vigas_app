@@ -20,7 +20,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-9u%7zlw#1g6ehgcvf+=x9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 RAILWAY_DOMAIN = os.environ.get('vigasapp-production.up.railway.app', '')
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.railway.app', RAILWAY_DOMAIN]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.railway.app','https://vigasapp-production.up.railway.app/admin/login/?next=/admin/', RAILWAY_DOMAIN]
 
 # Application definition
 INSTALLED_APPS = [
@@ -132,6 +132,5 @@ CORS_ALLOW_ALL_ORIGINS = True
  # Añade esto a tu settings.py
 if RAILWAY_DOMAIN:
     CSRF_TRUSTED_ORIGINS = [f'https://{RAILWAY_DOMAIN}']
-    CSRF_TRUSTED_ORIGINS = [f'https://{RAILWAY_DOMAIN}/admin/']
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
