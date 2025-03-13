@@ -10,11 +10,19 @@ class OrdenViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         try:
-            return super().create(request, *args, **kwargs)
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         except Exception as e:
+            # Devolver un mensaje de error más detallado
+            error_message = str(e)
+            if hasattr(e, 'detail'):
+                error_message = str(e.detail)
             return Response(
-                {'error': str(e)},
-                status=400
+                {'error': error_message},
+                status=status.HTTP_400_BAD_REQUEST
             )
 
     def retrieve(self, request, pk=None):

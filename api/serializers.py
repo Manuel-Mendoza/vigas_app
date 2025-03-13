@@ -5,7 +5,8 @@ from .models import Orden, Viga
 class VigaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Viga
-        fields = '__all__'
+        fields = ['id', 'nombre', 'cantidad', 'medidas', 'cada_una', 'tipo', 'orden']
+        read_only_fields = ['orden']  # Marca el campo orden como solo lectura
 
 
 class OrdenSerializer(serializers.ModelSerializer):
@@ -21,6 +22,13 @@ class OrdenSerializer(serializers.ModelSerializer):
         orden = Orden.objects.create(**validated_data)
 
         for viga_data in vigas_data:
+            # Creamos la viga y asignamos la orden automáticamente
             Viga.objects.create(orden=orden, **viga_data)
 
         return orden
+        
+    def validate_vigas(self, value):
+        # Validamos que haya al menos una viga
+        if len(value) == 0:
+            raise serializers.ValidationError("Debe incluir al menos una viga")
+        return value
