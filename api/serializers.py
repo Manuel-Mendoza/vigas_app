@@ -27,6 +27,23 @@ class OrdenSerializer(serializers.ModelSerializer):
 
         return orden
         
+    def update(self, instance, validated_data):
+        # Actualizamos los campos de la orden
+        instance.numero_orden = validated_data.get('numero_orden', instance.numero_orden)
+        instance.fecha = validated_data.get('fecha', instance.fecha)
+        instance.save()
+        
+        # Manejamos las vigas
+        if 'vigas' in validated_data:
+            # Eliminamos todas las vigas existentes
+            instance.vigas.all().delete()
+            
+            # Creamos las nuevas vigas
+            for viga_data in validated_data.get('vigas', []):
+                Viga.objects.create(orden=instance, **viga_data)
+                
+        return instance
+        
     def validate_vigas(self, value):
         # Validamos que haya al menos una viga
         if len(value) == 0:

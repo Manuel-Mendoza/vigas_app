@@ -25,6 +25,23 @@ class OrdenViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+    def update(self, request, *args, **kwargs):
+        try:
+            instance = self.get_object()
+            serializer = self.get_serializer(instance, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_update(serializer)
+            return Response(serializer.data)
+        except Exception as e:
+            # Devolver un mensaje de error más detallado
+            error_message = str(e)
+            if hasattr(e, 'detail'):
+                error_message = str(e.detail)
+            return Response(
+                {'error': error_message},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
     def retrieve(self, request, pk=None):
         # Intentar primero buscar por ID
         try:
