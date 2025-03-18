@@ -133,8 +133,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # CORS settings
-CORS_ALLOW_ALL_ORIGINS = True
- # Añade esto a tu settings.py
+CORS_ALLOWED_ORIGINS = [
+    "https://vigasapp-production.up.railway.app/",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://vigasapp-production.up.railway.app",
+]
+
 if RAILWAY_DOMAIN:
     CSRF_TRUSTED_ORIGINS = [f'https://{RAILWAY_DOMAIN}']
 # Default primary key field type
