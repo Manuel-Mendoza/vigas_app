@@ -137,6 +137,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://vigasapp-production.up.railway.app",
     "https://inventory-beams.vercel.app",  # Add this line
 ]
+CORS_ALLOW_CREDENTIALS = True  # Add this line
 CSRF_TRUSTED_ORIGINS = [
     "https://vigasapp-production.up.railway.app",
 ]
