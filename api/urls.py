@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import OrdenViewSet 
+from .views import OrdenViewSet, login_api
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 router = DefaultRouter()
@@ -9,6 +9,9 @@ router.register(r'ordenes', OrdenViewSet)
 urlpatterns = [
     # Incluye las URLs generadas por el router
     path('', include(router.urls)),
+    
+    # URL para autenticación
+    path('login/', login_api, name='login'),
 
     # URLs para la documentación de la API
     path('schema/', SpectacularAPIView.as_view(), name='schema'),

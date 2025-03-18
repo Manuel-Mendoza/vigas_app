@@ -1,8 +1,27 @@
-from rest_framework import viewsets, status
-from rest_framework.decorators import action
+from rest_framework import viewsets, status, permissions
+from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import login
 from .models import Orden
-from .serializers import OrdenSerializer
+from .serializers import OrdenSerializer, LoginSerializer
+
+
+@api_view(['POST'])
+@permission_classes([permissions.AllowAny])
+def login_api(request):
+    serializer = LoginSerializer(data=request.data, context={'request': request})
+    if serializer.is_valid():
+        user = serializer.validated_data['user']
+        login(request, user)
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'user_id': user.pk,
+            'username': user.username
+        })
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class OrdenViewSet(viewsets.ModelViewSet):
     queryset = Orden.objects.all()
