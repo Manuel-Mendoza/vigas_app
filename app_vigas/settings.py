@@ -134,7 +134,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
-    "https://vigasapp-production.up.railway.app/",
+    "https://vigasapp-production.up.railway.app",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "https://vigasapp-production.up.railway.app",
