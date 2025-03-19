@@ -20,7 +20,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-9u%7zlw#1g6ehgcvf+=x9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 RAILWAY_DOMAIN = os.environ.get('vigasapp-production.up.railway.app', '')
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.railway.app','https://vigasapp-production.up.railway.app/admin/login/?next=/admin/', RAILWAY_DOMAIN]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.railway.app', RAILWAY_DOMAIN]
 
 # Application definition
 INSTALLED_APPS = [
@@ -57,7 +57,7 @@ SPECTACULAR_SETTINGS = {
 }
 
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",  # Ensure this is at the top
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -135,9 +135,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     "https://vigasapp-production.up.railway.app",
-    "https://inventory-beams.vercel.app",  # Add this line
+    "https://inventory-beams.vercel.app",
+    "http://localhost", 
+    "http://127.0.0.1",
+    "http://localhost:4321",  # Ensure this is included
 ]
-CORS_ALLOW_CREDENTIALS = True  # Add this line
+CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     "https://vigasapp-production.up.railway.app",
 ]
