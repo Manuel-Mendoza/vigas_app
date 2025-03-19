@@ -140,6 +140,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1",
     "http://localhost:4321",  # Ensure this is included
 ]
+CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     "https://vigasapp-production.up.railway.app",
 ]
